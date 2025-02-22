@@ -1,8 +1,5 @@
 using Database;
-using Microsoft.EntityFrameworkCore;
 using Model;
-using Repository.Interfaces;
-using Repository.Repositories;
 using Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,19 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-;
 
-
-builder.Services.AddDbContext<ClubsDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-
-});
-
-builder.Services.AddScoped<IRepository<Club>, Repository<Club>>(); 
-builder.Services.AddScoped<IRepository<Player>, Repository<Player>>(); 
-builder.Services.AddScoped<IClubRepository, ClubRepository>();
-builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
+builder.Services.AddScoped<ICosmosDb<Club>, CosmosDb<Club>>(); 
+builder.Services.AddScoped<ICosmosDb<Player>, CosmosDb<Player>>(); 
 builder.Services.AddScoped<IPlayerService, PlayerService>();
 builder.Services.AddScoped<IClubService, ClubService>();
 
