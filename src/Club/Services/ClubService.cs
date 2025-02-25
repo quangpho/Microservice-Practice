@@ -5,9 +5,8 @@ namespace Services;
 
 public class ClubService : IClubService
 {
-    private readonly IClubRepository _clubRepository;
 
-    public ClubService(IClubRepository clubRepository)
+    public ClubService( clubRepository)
     {
         _clubRepository = clubRepository;
     }
