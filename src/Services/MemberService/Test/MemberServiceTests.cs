@@ -6,15 +6,15 @@ using Xunit;
 
 namespace Test
 {
-    public class PlayerServiceTests
+    public class MemberServiceTests
     {
         private readonly Mock<IPlayerRepository> _mockPlayerRepository;
-        private readonly PlayerService _playerService;
+        private readonly MemberService _memberService;
 
-        public PlayerServiceTests()
+        public MemberServiceTests()
         {
             _mockPlayerRepository = new Mock<IPlayerRepository>();
-            _playerService = new PlayerService(_mockPlayerRepository.Object);
+            _memberService = new MemberService(_mockPlayerRepository.Object);
         }
 
         [Fact]
@@ -26,7 +26,7 @@ namespace Test
                 .Returns(Task.CompletedTask);
 
             // Act
-            var player = await _playerService.CreatePlayerAsync(playerId);
+            var player = await _memberService.CreatePlayerAsync(playerId);
 
             // Assert
             Assert.NotNull(player);
@@ -49,7 +49,7 @@ namespace Test
                 .ReturnsAsync(player);
 
             // Act
-            var result = await _playerService.HasClub(playerId);
+            var result = await _memberService.HasClub(playerId);
 
             // Assert
             Assert.True(result);
@@ -67,7 +67,7 @@ namespace Test
                 .ReturnsAsync(expectedPlayer);
 
             // Act
-            var result = await _playerService.GetPlayerAsync(playerId);
+            var result = await _memberService.GetPlayerAsync(playerId);
 
             // Assert
             Assert.NotNull(result);
@@ -85,7 +85,7 @@ namespace Test
                 .ReturnsAsync((Member)null);
 
             // Act
-            var result = await _playerService.GetPlayerAsync(playerId);
+            var result = await _memberService.GetPlayerAsync(playerId);
 
             // Assert
             Assert.Null(result);

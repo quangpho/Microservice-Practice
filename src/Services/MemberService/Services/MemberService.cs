@@ -3,11 +3,11 @@ using Repository.Interfaces;
 
 namespace Services;
 
-public class PlayerService : IPlayerService
+public class MemberService : IMemberService
 {
     private readonly IPlayerRepository _playerRepository;
 
-    public PlayerService(IPlayerRepository playerRepository)
+    public MemberService(IPlayerRepository playerRepository)
     {
         _playerRepository = playerRepository;
     }

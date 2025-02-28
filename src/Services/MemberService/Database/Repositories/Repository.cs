@@ -1,13 +1,14 @@
 using System.Net;
+using Database.Repositories.Interfaces;
 using Microsoft.Azure.Cosmos;
 
-namespace Database;
+namespace Database.Repositories;
 
-public class CosmosDb<T> : ICosmosDb<T> where T : class
+public class Repository<T> : IRepository<T> where T : class
 {
     private readonly Container _container;
 
-    public CosmosDb(CosmosClient cosmosClient, string databaseName, string containerName)
+    public Repository(CosmosClient cosmosClient, string databaseName, string containerName)
     {
         _container = cosmosClient.GetContainer(databaseName, containerName);
     }

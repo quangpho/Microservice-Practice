@@ -2,45 +2,45 @@
 using Microsoft.AspNetCore.Mvc;
 using Services;
 
-namespace ClubApi;
+namespace MemberApi;
 
 [ApiController]
 [Route("api/[controller]")]
 public class GroupController : ControllerBase
 {
-    private readonly IClubService _clubService;
-    private readonly IPlayerService _playerService;
+    private readonly IGroupService _groupService;
+    private readonly IMemberService _memberService;
     
-    public GroupController(IClubService clubService, IPlayerService playerService)
+    public GroupController(IGroupService groupService, IMemberService memberService)
     {
-        _clubService = clubService;
-        _playerService = playerService;
+        _groupService = groupService;
+        _memberService = memberService;
     }
     
     [HttpPost]
     public async Task<IActionResult> CreateClub([FromQuery(Name = "Member-ID")] long playerId, 
         [FromBody] CreateClubRequestDto request)
     {
-        if (await _clubService.ClubExistsByNameAsync(request.Name))
+        if (await _groupService.ClubExistsByNameAsync(request.Name))
         {
             return Conflict("There is already a club has the same name");
         }
 
         // Check if player is already in another club
-        var hasClub = await _playerService.HasClub(playerId);
+        var hasClub = await _memberService.HasClub(playerId);
         if (hasClub)
         {
             return Conflict("Member already belongs to a club");
         }
         
-        var club = await _clubService.CreateClubAsync(request.Name);
-        var player = await _playerService.GetPlayerAsync(playerId);
+        var club = await _groupService.CreateClubAsync(request.Name);
+        var player = await _memberService.GetPlayerAsync(playerId);
         if (player == null)
         {
-            player = await _playerService.CreatePlayerAsync(playerId);
+            player = await _memberService.CreatePlayerAsync(playerId);
         }
         
-        await _clubService.AddMemberToClubAsync(player, club);
+        await _groupService.AddMemberToClubAsync(player, club);
         
         return CreatedAtAction(
             nameof(CreateClub),
@@ -52,7 +52,7 @@ public class GroupController : ControllerBase
     [HttpGet("{clubId}")]
     public async Task<IActionResult> GetClub(Guid clubId)
     {
-        var club = await _clubService.GetClubInfo(clubId);
+        var club = await _groupService.GetClubInfo(clubId);
         if (club == null)
         {
             return NotFound();
@@ -66,26 +66,26 @@ public class GroupController : ControllerBase
         [FromHeader(Name = "Member-ID")] long playerId,
         [FromBody] AddMemberRequest request)
     {
-        var club = await _clubService.GetClubInfo(clubId);
+        var club = await _groupService.GetClubInfo(clubId);
         if (club == null)
         {
             return NotFound();
         }
             
         // Check if player is already in another club
-        var hasClub = await _playerService.HasClub(playerId);
+        var hasClub = await _memberService.HasClub(playerId);
         if (hasClub)
         {
             return Conflict("Member already belongs to a club");
         }
             
-        var player = await _playerService.GetPlayerAsync(playerId);
+        var player = await _memberService.GetPlayerAsync(playerId);
         if (player == null)
         {
-            player = await _playerService.CreatePlayerAsync(playerId);
+            player = await _memberService.CreatePlayerAsync(playerId);
         }
         
-        await _clubService.AddMemberToClubAsync(player, club);
+        await _groupService.AddMemberToClubAsync(player, club);
         
         return NoContent();
     }

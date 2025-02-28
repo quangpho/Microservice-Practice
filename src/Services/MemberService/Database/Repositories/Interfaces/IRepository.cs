@@ -1,6 +1,6 @@
-namespace Database;
+namespace Database.Repositories.Interfaces;
 
-public interface ICosmosDb<T> where T : class
+public interface IRepository<T> where T : class
 {
     Task<T?> GetItemAsync(string id, string partitionKey);
     Task AddItemAsync(T item, string partitionKey);

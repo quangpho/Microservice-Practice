@@ -1,4 +1,5 @@
-using Database;
+using Database.Repositories;
+using Database.Repositories.Interfaces;
 using Model;
 using Services;
 
@@ -10,10 +11,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<ICosmosDb<Group>, CosmosDb<Group>>(); 
-builder.Services.AddScoped<ICosmosDb<Member>, CosmosDb<Member>>(); 
-builder.Services.AddScoped<IPlayerService, PlayerService>();
-builder.Services.AddScoped<IClubService, ClubService>();
+builder.Services.AddScoped<IRepository<Group>, Repository<Group>>(); 
+builder.Services.AddScoped<IRepository<Member>, Repository<Member>>(); 
+builder.Services.AddScoped<IMemberService, MemberService>();
+builder.Services.AddScoped<IGroupService, ClubService>();
 
 var app = builder.Build();
 
