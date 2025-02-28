@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MemberServices", "MemberSer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemberApi", "src\Services\MemberService\MemberApi\MemberApi.csproj", "{A1CA2B3D-8E5F-4A66-B88B-99A121667E8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "src\Services\MemberService\Database\Database.csproj", "{35968EB8-5B53-4664-ACF0-2EA3DCB7FA73}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "src\Services\MemberService\DataLayer\DataLayer.csproj", "{35968EB8-5B53-4664-ACF0-2EA3DCB7FA73}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "src\Services\MemberService\Model\Model.csproj", "{073E3C61-A075-4096-AD0C-06302646D438}"
 EndProject

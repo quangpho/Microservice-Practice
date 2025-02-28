@@ -2,11 +2,12 @@ using System.Net;
 using Database.Repositories.Interfaces;
 using Microsoft.Azure.Cosmos;
 
-namespace Database.Repositories;
+namespace DataLayer.Repositories;
 
 public class Repository<T> : IRepository<T> where T : class
 {
     private readonly Container Container;
+    private readonly Microsoft.Azure.Cosmos.Database Database;
 
     public Repository(ICosmosDb cosmosDb, string databaseName, string containerName)
     {
