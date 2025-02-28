@@ -12,11 +12,11 @@ public class PlayerService : IPlayerService
         _playerRepository = playerRepository;
     }
 
-    public async Task<Player> CreatePlayerAsync(long id)
+    public async Task<Member> CreatePlayerAsync(long id)
     {
-        var player = new Player()
+        var player = new Member()
         {
-            PlayerId = id
+            MemberId = id
         };
 
         await _playerRepository.AddAsync(player);
@@ -34,7 +34,7 @@ public class PlayerService : IPlayerService
         return player.Club != null;
     }
     
-    public async Task<Player> GetPlayerAsync(long id)
+    public async Task<Member> GetPlayerAsync(long id)
     {
         return await _playerRepository.GetPlayerInfo(id);
     }

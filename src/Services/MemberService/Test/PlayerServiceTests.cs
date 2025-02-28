@@ -22,7 +22,7 @@ namespace Test
         {
             // Arrange
             long playerId = 123;
-            _mockPlayerRepository.Setup(repo => repo.AddAsync(It.IsAny<Player>()))
+            _mockPlayerRepository.Setup(repo => repo.AddAsync(It.IsAny<Member>()))
                 .Returns(Task.CompletedTask);
 
             // Act
@@ -30,8 +30,8 @@ namespace Test
 
             // Assert
             Assert.NotNull(player);
-            Assert.Equal(playerId, player.PlayerId);
-            _mockPlayerRepository.Verify(repo => repo.AddAsync(It.IsAny<Player>()), Times.Once);
+            Assert.Equal(playerId, player.MemberId);
+            _mockPlayerRepository.Verify(repo => repo.AddAsync(It.IsAny<Member>()), Times.Once);
         }
 
         [Fact]
@@ -39,10 +39,10 @@ namespace Test
         {
             // Arrange
             long playerId = 123;
-            var player = new Player
+            var player = new Member
             {
-                PlayerId = playerId,
-                Club = new Club { Id = System.Guid.NewGuid(), Name = "Test Club" }
+                MemberId = playerId,
+                Club = new Group { Id = System.Guid.NewGuid(), Name = "Test Group" }
             };
 
             _mockPlayerRepository.Setup(repo => repo.GetPlayerInfo(playerId))
@@ -61,7 +61,7 @@ namespace Test
         {
             // Arrange
             long playerId = 123;
-            var expectedPlayer = new Player { PlayerId = playerId };
+            var expectedPlayer = new Member { MemberId = playerId };
 
             _mockPlayerRepository.Setup(repo => repo.GetPlayerInfo(playerId))
                 .ReturnsAsync(expectedPlayer);
@@ -71,7 +71,7 @@ namespace Test
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(playerId, result.PlayerId);
+            Assert.Equal(playerId, result.MemberId);
             _mockPlayerRepository.Verify(repo => repo.GetPlayerInfo(playerId), Times.Once);
         }
 
@@ -82,7 +82,7 @@ namespace Test
             long playerId = 123;
 
             _mockPlayerRepository.Setup(repo => repo.GetPlayerInfo(playerId))
-                .ReturnsAsync((Player)null);
+                .ReturnsAsync((Member)null);
 
             // Act
             var result = await _playerService.GetPlayerAsync(playerId);

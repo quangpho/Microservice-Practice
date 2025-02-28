@@ -16,26 +16,26 @@ public class ClubService : IClubService
         return await _clubRepository.ExistsByNameAsync(clubName);
     }
     
-    public async Task<Club> CreateClubAsync(string clubName)
+    public async Task<Group> CreateClubAsync(string clubName)
     {
-        var club = new Club
+        var club = new Group
         {
             Id = Guid.NewGuid(),
             Name = clubName,
-            Members = new List<Player>()
+            Members = new List<Member>()
         };
 
         await _clubRepository.AddAsync(club);
         return club;
     }
 
-    public async Task AddMemberToClubAsync(Player player, Club club)
+    public async Task AddMemberToClubAsync(Member member, Group group)
     {
-        club.Members.Add(player);
-        await _clubRepository.UpdateAsync(club);
+        group.Members.Add(member);
+        await _clubRepository.UpdateAsync(group);
     }
 
-    public async Task<Club> GetClubInfo(Guid id)
+    public async Task<Group> GetClubInfo(Guid id)
     {
         return await _clubRepository.GetWithMembersAsync(id);
     }

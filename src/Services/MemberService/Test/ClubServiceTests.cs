@@ -21,7 +21,7 @@ namespace Test
         public async Task ClubExistsByNameAsync_ShouldReturnTrue_WhenClubExists()
         {
             // Arrange
-            var clubName = "Test Club";
+            var clubName = "Test Group";
             _mockClubRepository.Setup(repo => repo.ExistsByNameAsync(clubName))
                 .ReturnsAsync(true);
 
@@ -37,7 +37,7 @@ namespace Test
         public async Task ClubExistsByNameAsync_ShouldReturnFalse_WhenClubDoesNotExist()
         {
             // Arrange
-            var clubName = "Nonexistent Club";
+            var clubName = "Nonexistent Group";
             _mockClubRepository.Setup(repo => repo.ExistsByNameAsync(clubName))
                 .ReturnsAsync(false);
         
@@ -53,8 +53,8 @@ namespace Test
         public async Task CreateClubAsync_ShouldCreateClubSuccessfully()
         {
             // Arrange
-            var clubName = "New Club";
-            _mockClubRepository.Setup(repo => repo.AddAsync(It.IsAny<Club>()))
+            var clubName = "New Group";
+            _mockClubRepository.Setup(repo => repo.AddAsync(It.IsAny<Group>()))
                 .Returns(Task.CompletedTask);
         
             // Act
@@ -65,19 +65,19 @@ namespace Test
             Assert.Equal(clubName, club.Name);
             Assert.NotEqual(Guid.Empty, club.Id);
             Assert.Empty(club.Members);
-            _mockClubRepository.Verify(repo => repo.AddAsync(It.IsAny<Club>()), Times.Once);
+            _mockClubRepository.Verify(repo => repo.AddAsync(It.IsAny<Group>()), Times.Once);
         }
         
         [Fact]
         public async Task AddMemberToClubAsync_ShouldAddMemberSuccessfully()
         {
             // Arrange
-            var player = new Player { PlayerId = 123};
-            var club = new Club
+            var player = new Member { MemberId = 123};
+            var club = new Group
             {
                 Id = Guid.NewGuid(),
-                Name = "Test Club",
-                Members = new List<Player>()
+                Name = "Test Group",
+                Members = new List<Member>()
             };
         
             _mockClubRepository.Setup(repo => repo.UpdateAsync(club))
@@ -97,14 +97,14 @@ namespace Test
         {
             // Arrange
             var clubId = Guid.NewGuid();
-            var expectedClub = new Club
+            var expectedClub = new Group
             {
                 Id = clubId,
-                Name = "Test Club",
-                Members = new List<Player>
+                Name = "Test Group",
+                Members = new List<Member>
                 {
-                    new Player { PlayerId = 123},
-                    new Player { PlayerId = 234},
+                    new Member { MemberId = 123},
+                    new Member { MemberId = 234},
                 }
             };
         

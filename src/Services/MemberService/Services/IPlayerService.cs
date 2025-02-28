@@ -4,7 +4,7 @@ namespace Services;
 
 public interface IPlayerService
 {
-    Task<Player> GetPlayerAsync(long id);
+    Task<Member> GetPlayerAsync(long id);
     Task<bool> HasClub(long id);
-    Task<Player> CreatePlayerAsync(long id);
+    Task<Member> CreatePlayerAsync(long id);
 }

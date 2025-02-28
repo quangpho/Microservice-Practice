@@ -6,19 +6,19 @@ namespace ClubApi;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ClubController : ControllerBase
+public class GroupController : ControllerBase
 {
     private readonly IClubService _clubService;
     private readonly IPlayerService _playerService;
     
-    public ClubController(IClubService clubService, IPlayerService playerService)
+    public GroupController(IClubService clubService, IPlayerService playerService)
     {
         _clubService = clubService;
         _playerService = playerService;
     }
     
     [HttpPost]
-    public async Task<IActionResult> CreateClub([FromQuery(Name = "Player-ID")] long playerId, 
+    public async Task<IActionResult> CreateClub([FromQuery(Name = "Member-ID")] long playerId, 
         [FromBody] CreateClubRequestDto request)
     {
         if (await _clubService.ClubExistsByNameAsync(request.Name))
@@ -30,7 +30,7 @@ public class ClubController : ControllerBase
         var hasClub = await _playerService.HasClub(playerId);
         if (hasClub)
         {
-            return Conflict("Player already belongs to a club");
+            return Conflict("Member already belongs to a club");
         }
         
         var club = await _clubService.CreateClubAsync(request.Name);
@@ -45,7 +45,7 @@ public class ClubController : ControllerBase
         return CreatedAtAction(
             nameof(CreateClub),
             new { clubId = club.Id },
-            new { id = club.Id, members = club.Members.Select(x => x.PlayerId).ToList() }
+            new { id = club.Id, members = club.Members.Select(x => x.MemberId).ToList() }
         );
     }
     
@@ -58,12 +58,12 @@ public class ClubController : ControllerBase
             return NotFound();
         }
         
-        return Ok(new { id = club.Id, members = club.Members.Select(x => x.PlayerId).ToList() });
+        return Ok(new { id = club.Id, members = club.Members.Select(x => x.MemberId).ToList() });
     }
     
     [HttpPost("{clubId}/members")]
     public async Task<IActionResult> AddMember(Guid clubId, 
-        [FromHeader(Name = "Player-ID")] long playerId,
+        [FromHeader(Name = "Member-ID")] long playerId,
         [FromBody] AddMemberRequest request)
     {
         var club = await _clubService.GetClubInfo(clubId);
@@ -76,7 +76,7 @@ public class ClubController : ControllerBase
         var hasClub = await _playerService.HasClub(playerId);
         if (hasClub)
         {
-            return Conflict("Player already belongs to a club");
+            return Conflict("Member already belongs to a club");
         }
             
         var player = await _playerService.GetPlayerAsync(playerId);

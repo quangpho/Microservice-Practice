@@ -10,8 +10,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<ICosmosDb<Club>, CosmosDb<Club>>(); 
-builder.Services.AddScoped<ICosmosDb<Player>, CosmosDb<Player>>(); 
+builder.Services.AddScoped<ICosmosDb<Group>, CosmosDb<Group>>(); 
+builder.Services.AddScoped<ICosmosDb<Member>, CosmosDb<Member>>(); 
 builder.Services.AddScoped<IPlayerService, PlayerService>();
 builder.Services.AddScoped<IClubService, ClubService>();
 
