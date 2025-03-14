@@ -9,7 +9,7 @@ public class Repository<T> : IRepository<T> where T : class
     private readonly Container Container;
     private readonly Microsoft.Azure.Cosmos.Database Database;
 
-    public Repository(ICosmosDb cosmosDb, string databaseName, string containerName)
+    public Repository(CosmosClient cosmosClient, string databaseName, string containerName)
     {
         Container = cosmosClient.GetContainer(databaseName, containerName);
     }
