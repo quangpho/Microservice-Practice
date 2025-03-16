@@ -5,7 +5,7 @@ namespace DataLayer.Repositories;
 
 public class MemberRepository : Repository<Member>
 {
-    public MemberRepository(CosmosClient cosmosDb, string databaseName, string containerName) : base(cosmosDb, databaseName, containerName)
+    public MemberRepository(CosmosClient cosmosClient, string databaseName, string containerName) : base(cosmosClient, databaseName, containerName)
     {
     }
 }

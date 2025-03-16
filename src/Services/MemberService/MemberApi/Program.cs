@@ -1,6 +1,6 @@
 using Database.Repositories;
-using Database.Repositories.Interfaces;
 using DataLayer.Repositories;
+using DataLayer.Repositories.Interfaces;
 using Microsoft.Azure.Cosmos;
 using Model;
 using Services;
