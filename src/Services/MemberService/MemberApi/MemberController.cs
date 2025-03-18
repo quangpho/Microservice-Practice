@@ -11,9 +11,11 @@ public class MemberController : ControllerBase
     {
         _memberService = memberService;
     }
-    public async Task<IActionResult> AddMember()
+    
+    [Route("addMember")]
+    [HttpPost]
+    public async Task<IActionResult> AddMember(long id)
     {
-        long id = 123;
         await _memberService.CreateMemberAsync(id);
         return Created();
     }

@@ -1,4 +1,3 @@
-using Database.Repositories;
 using DataLayer.Repositories;
 using DataLayer.Repositories.Interfaces;
 using Microsoft.Azure.Cosmos;
@@ -13,11 +12,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<IRepository<Group>, Repository<Group>>();
-builder.Services.AddScoped<IRepository<Member>,MemberRepository>();
 builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddSingleton(
-    new CosmosClient(builder.Configuration.GetConnectionString("CosmosDb")));
+    new CosmosClient(builder.Configuration["CosmosDbInitialization:ConnectionString"]));
+// builder.Services.AddScoped<IRepository<Group>, Repository<Group>>();
+builder.Services.AddScoped<IRepository<Member>>(service =>
+{
+    var databaseName = builder.Configuration["CosmosDbInitialization:DatabaseName"];
+    var cosmosClient = service.GetRequiredService<CosmosClient>();
+    return new MemberRepository(cosmosClient, databaseName, "Members");
+});
 
 var app = builder.Build();
 
