@@ -1,3 +1,4 @@
+using DataLayer;
 using DataLayer.Repositories;
 using DataLayer.Repositories.Interfaces;
 using Microsoft.Azure.Cosmos;
@@ -14,14 +15,18 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddSingleton(
-    new CosmosClient(builder.Configuration["CosmosDbInitialization:ConnectionString"]));
+    new CosmosClient(builder.Configuration["CosmosDb:ConnectionString"]));
 // builder.Services.AddScoped<IRepository<Group>, Repository<Group>>();
 builder.Services.AddScoped<IRepository<Member>>(service =>
 {
-    var databaseName = builder.Configuration["CosmosDbInitialization:DatabaseName"];
+    var databaseName = builder.Configuration["CosmosDb:DatabaseName"];
     var cosmosClient = service.GetRequiredService<CosmosClient>();
     return new MemberRepository(cosmosClient, databaseName, "Members");
 });
+
+// Register the CosmosDbInitializer.
+builder.Services.AddSingleton<CosmosDbInitializer>();
+
 
 var app = builder.Build();
 
@@ -35,4 +40,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Ensure the database and containers are created before the app starts handling requests.
+using (var scope = app.Services.CreateScope())
+{
+    var cosmosInitializer = scope.ServiceProvider.GetRequiredService<CosmosDbInitializer>();
+    await cosmosInitializer.EnsureDatabaseAndContainersExistAsync();
+}
+
 app.Run();
