@@ -1,7 +1,11 @@
-﻿namespace Model;
+﻿using Newtonsoft.Json;
+
+namespace Model;
 
 public class Member
 {
-    public long MemberId { get; set; }
-    public Group? Club { get; set; }
+    [JsonProperty("id")]
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public string GroupdId { get; set; }
 }

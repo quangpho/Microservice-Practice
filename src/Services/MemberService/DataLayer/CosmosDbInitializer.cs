@@ -19,7 +19,7 @@ public class CosmosDbInitializer
         var databaseName = _configuration["CosmosDb:DatabaseName"];
         var database = await _client.CreateDatabaseIfNotExistsAsync(databaseName);
 
-        await database.Database.CreateContainerIfNotExistsAsync(new ContainerProperties("Group", "/partitionKey"));
-        await database.Database.CreateContainerIfNotExistsAsync(new ContainerProperties("Member", "/partitionKey"));
+        await database.Database.CreateContainerIfNotExistsAsync(new ContainerProperties("Groups", "/partitionKey"));
+        await database.Database.CreateContainerIfNotExistsAsync(new ContainerProperties("Members", "/partitionKey"));
     }
 }

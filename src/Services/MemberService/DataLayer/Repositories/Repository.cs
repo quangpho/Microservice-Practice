@@ -8,7 +8,7 @@ public class Repository<T> : IRepository<T> where T : class
 {
     private readonly Container _container;
 
-    public Repository(CosmosClient cosmosClient, string databaseName, string containerName)
+    protected Repository(CosmosClient cosmosClient, string databaseName, string containerName)
     {
         _container = cosmosClient.GetContainer(databaseName, containerName);
     }

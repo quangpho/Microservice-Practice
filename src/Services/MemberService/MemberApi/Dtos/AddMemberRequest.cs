@@ -1,6 +1,7 @@
-﻿namespace ClubApi.Dtos;
+﻿namespace MemberApi.Dtos;
 
 public class AddMemberRequest
 {
-    public long PlayerId { get; set; }
+    public string Id { get; set; }
+    public string Name { get; set; }
 }
