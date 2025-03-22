@@ -30,6 +30,12 @@ public class Repository<T> : IRepository<T> where T : class
     {
         await _container.CreateItemAsync(item, new PartitionKey(partitionKey));
     }
+    
+    public async Task AddItemAsync(T item)
+    {
+        await _container.CreateItemAsync(item);
+    }
+
 
     public async Task UpdateItemAsync(T item, string partitionKey)
     {
