@@ -15,8 +15,13 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddSingleton(
-    new CosmosClient(builder.Configuration["CosmosDb:ConnectionString"]));
-// builder.Services.AddScoped<IRepository<Group>, Repository<Group>>();
+    new CosmosClient(builder.Configuration["CosmosDb:ConnectionString"], new CosmosClientOptions()
+    {
+        SerializerOptions = new CosmosSerializationOptions()
+        {
+            PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
+        }
+    }));
 builder.Services.AddScoped<IRepository<Member>>(service =>
 {
     var databaseName = builder.Configuration["CosmosDb:DatabaseName"];
