@@ -22,15 +22,16 @@ public class MemberService : IMemberService
         throw new NotImplementedException();
     }
 
-    public async Task<Member> CreateMemberAsync(string id, string name)
+    public async Task<Member> CreateMemberAsync(long id, string name)
     {
         var member = new Member()
         {
-            Id = id,
-            Name = name
+            Id = id.ToString(),
+            Name = name,
+            PartionKey = "default"
         };
 
-        await _memberRepository.AddItemAsync(member, "member");
+        await _memberRepository.AddItemAsync(member);
         return member;
     }
 }
