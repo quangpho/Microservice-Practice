@@ -1,7 +1,7 @@
-﻿// using Model;
+﻿// using Domain;
 // using Moq;
 // using Repository.Interfaces;
-// using Services;
+// using Application;
 // using Xunit;
 //
 // namespace Test

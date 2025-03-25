@@ -1,6 +1,6 @@
-﻿using Model;
+﻿using Domain;
 
-namespace Services;
+namespace Application.Interfaces;
 
 public interface IMemberService
 {

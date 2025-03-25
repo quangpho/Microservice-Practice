@@ -1,9 +1,10 @@
-using DataLayer;
-using DataLayer.Repositories;
-using DataLayer.Repositories.Interfaces;
+using Application.Interfaces;
+using Application.Services;
+using Domain;
+using Infrastructure;
+using Infrastructure.Repositories;
+using Infrastructure.Repositories.Interfaces;
 using Microsoft.Azure.Cosmos;
-using Model;
-using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

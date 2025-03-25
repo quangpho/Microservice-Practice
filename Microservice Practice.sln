@@ -9,15 +9,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{15
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MemberServices", "MemberServices", "{6E1330DE-89D1-4960-AEF3-92510D866665}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemberApi", "src\Services\MemberService\MemberApi\MemberApi.csproj", "{A1CA2B3D-8E5F-4A66-B88B-99A121667E8D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "src\Services\MemberService\Api\Api.csproj", "{A1CA2B3D-8E5F-4A66-B88B-99A121667E8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "src\Services\MemberService\DataLayer\DataLayer.csproj", "{35968EB8-5B53-4664-ACF0-2EA3DCB7FA73}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\Services\MemberService\Infrastructure\Infrastructure.csproj", "{35968EB8-5B53-4664-ACF0-2EA3DCB7FA73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "src\Services\MemberService\Model\Model.csproj", "{073E3C61-A075-4096-AD0C-06302646D438}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Services\MemberService\Domain\Domain.csproj", "{073E3C61-A075-4096-AD0C-06302646D438}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "src\Services\MemberService\Services\Services.csproj", "{3D302ADE-28D6-4163-88E0-7C3BE23C7691}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Services\MemberService\Application\Application.csproj", "{3D302ADE-28D6-4163-88E0-7C3BE23C7691}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "src\Services\MemberService\Test\Test.csproj", "{F6480194-4DCD-49E8-B7EC-003236B2D5E7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MovieServices", "MovieServices", "{A81D819A-7AAA-4362-85C3-5C2B4087337F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,5 +55,6 @@ Global
 		{073E3C61-A075-4096-AD0C-06302646D438} = {6E1330DE-89D1-4960-AEF3-92510D866665}
 		{3D302ADE-28D6-4163-88E0-7C3BE23C7691} = {6E1330DE-89D1-4960-AEF3-92510D866665}
 		{F6480194-4DCD-49E8-B7EC-003236B2D5E7} = {6E1330DE-89D1-4960-AEF3-92510D866665}
+		{A81D819A-7AAA-4362-85C3-5C2B4087337F} = {155B11F9-8914-449E-A130-43E5B2D0BC59}
 	EndGlobalSection
 EndGlobal

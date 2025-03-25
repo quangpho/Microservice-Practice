@@ -1,8 +1,8 @@
 ﻿// using ClubApi.Dtos;
 // using Microsoft.AspNetCore.Mvc;
-// using Services;
+// using Application;
 //
-// namespace MemberApi;
+// namespace Api;
 //
 // [ApiController]
 // [Route("api/[controller]")]

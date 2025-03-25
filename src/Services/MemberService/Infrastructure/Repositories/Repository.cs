@@ -1,8 +1,8 @@
 using System.Net;
-using DataLayer.Repositories.Interfaces;
+using Infrastructure.Repositories.Interfaces;
 using Microsoft.Azure.Cosmos;
 
-namespace DataLayer.Repositories;
+namespace Infrastructure.Repositories;
 
 public class Repository<T> : IRepository<T> where T : class
 {

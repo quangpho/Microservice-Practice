@@ -1,4 +1,4 @@
-﻿namespace MemberApi.Dtos;
+﻿namespace Api.Dtos;
 
 public class AddMemberRequest
 {

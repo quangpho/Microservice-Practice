@@ -1,8 +1,8 @@
-using MemberApi.Dtos;
+using Api.Dtos;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Services;
 
-namespace MemberApi;
+namespace Api;
 
 [ApiController]
 public class MemberController : ControllerBase

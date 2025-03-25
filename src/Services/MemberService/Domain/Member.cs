@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Model;
+﻿namespace Domain;
 
 public class Member
 {

@@ -1,7 +1,8 @@
-﻿using DataLayer.Repositories.Interfaces;
-using Model;
+﻿using Application.Interfaces;
+using Domain;
+using Infrastructure.Repositories.Interfaces;
 
-namespace Services;
+namespace Application.Services;
 
 public class MemberService : IMemberService
 {

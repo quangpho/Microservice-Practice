@@ -1,4 +1,4 @@
-namespace DataLayer.Repositories.Interfaces;
+namespace Infrastructure.Repositories.Interfaces;
 
 public interface IRepository<T> where T : class
 {

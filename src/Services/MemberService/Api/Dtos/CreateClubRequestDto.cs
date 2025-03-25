@@ -1,4 +1,4 @@
-﻿namespace ClubApi.Dtos;
+﻿namespace Api.Dtos;
 
 public class CreateClubRequestDto
 {

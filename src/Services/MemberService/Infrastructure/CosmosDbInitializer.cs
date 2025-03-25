@@ -1,7 +1,7 @@
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 
-namespace DataLayer;
+namespace Infrastructure;
 
 public class CosmosDbInitializer
 {

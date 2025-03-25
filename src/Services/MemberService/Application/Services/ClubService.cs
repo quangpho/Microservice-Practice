@@ -1,7 +1,7 @@
-﻿// using Model;
+﻿// using Domain;
 // using Repository.Interfaces;
 //
-// namespace Services;
+// namespace Application;
 //
 // public class ClubService : IGroupService
 // {

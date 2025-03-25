@@ -1,7 +1,7 @@
+using Domain;
 using Microsoft.Azure.Cosmos;
-using Model;
 
-namespace DataLayer.Repositories;
+namespace Infrastructure.Repositories;
 
 public class MemberRepository : Repository<Member>
 {
