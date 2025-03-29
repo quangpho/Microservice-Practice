@@ -7,15 +7,16 @@ namespace Application.Services;
 public class MemberService : IMemberService
 {
     private readonly IRepository<Member> _memberRepository;
+    private readonly string _defaultPartitionKey = "default";
 
     public MemberService(IRepository<Member> memberRepository)
     {
         _memberRepository = memberRepository;
     }
 
-    public Task<Member> GetMemberAsync(long id)
+    public async Task<Member> GetMemberAsync(long id)
     {
-        throw new NotImplementedException();
+        return await _memberRepository.GetItemAsync(id.ToString(), _defaultPartitionKey);
     }
 
     public Task<bool> HasClub(long id)
@@ -29,7 +30,7 @@ public class MemberService : IMemberService
         {
             Id = id.ToString(),
             Name = name,
-            PartionKey = "default"
+            PartionKey = _defaultPartitionKey
         };
 
         await _memberRepository.AddItemAsync(member);

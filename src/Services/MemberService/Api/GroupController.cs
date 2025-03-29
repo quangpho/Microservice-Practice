@@ -19,7 +19,7 @@
 //     
 //     [HttpPost]
 //     public async Task<IActionResult> CreateClub([FromQuery(Name = "Member-ID")] long playerId, 
-//         [FromBody] CreateClubRequestDto request)
+//         [FromBody] CreateMemberRequest request)
 //     {
 //         if (await _groupService.ClubExistsByNameAsync(request.Name))
 //         {

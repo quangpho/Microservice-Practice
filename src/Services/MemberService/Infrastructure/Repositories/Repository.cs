@@ -33,7 +33,15 @@ public class Repository<T> : IRepository<T> where T : class
     
     public async Task AddItemAsync(T item)
     {
-        await _container.CreateItemAsync(item);
+        try
+        {
+            await _container.CreateItemAsync(item);
+        }
+        catch (CosmosException e) when(e.StatusCode == HttpStatusCode.Conflict)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
 

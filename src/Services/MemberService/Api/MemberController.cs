@@ -14,11 +14,19 @@ public class MemberController : ControllerBase
         _memberService = memberService;
     }
 
-    [Route("addMember")]
+    [Route("members")]
     [HttpPost]
     public async Task<IActionResult> AddMember([FromBody] AddMemberRequest request)
     {
         await _memberService.CreateMemberAsync(request.Id, request.Name);
         return Created();
+    }
+    
+    [Route("members")]
+    [HttpGet]
+    public async Task<IActionResult> GetMember(long id)
+    {
+        var member = await _memberService.GetMemberAsync(id);
+        return Ok(member);
     }
 }
