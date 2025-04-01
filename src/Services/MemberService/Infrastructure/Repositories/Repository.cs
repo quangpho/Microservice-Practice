@@ -1,15 +1,19 @@
 using System.Net;
-using Infrastructure.Repositories.Interfaces;
+using Application.Interfaces;
 using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Repositories;
 
 public class Repository<T> : IRepository<T> where T : class
 {
+    private readonly ILogger<IRepository<T>> _logger;
     private readonly Container _container;
 
-    protected Repository(CosmosClient cosmosClient, string databaseName, string containerName)
+    protected Repository(CosmosClient cosmosClient, string databaseName, string containerName,
+        ILogger<IRepository<T>> logger)
     {
+        _logger = logger;
         _container = cosmosClient.GetContainer(databaseName, containerName);
     }
 
@@ -30,16 +34,16 @@ public class Repository<T> : IRepository<T> where T : class
     {
         await _container.CreateItemAsync(item, new PartitionKey(partitionKey));
     }
-    
+
     public async Task AddItemAsync(T item)
     {
         try
         {
             await _container.CreateItemAsync(item);
         }
-        catch (CosmosException e) when(e.StatusCode == HttpStatusCode.Conflict)
+        catch (CosmosException e) when (e.StatusCode == HttpStatusCode.Conflict)
         {
-            Console.WriteLine(e);
+            _logger.LogError(e.Message);
             throw;
         }
     }

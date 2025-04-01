@@ -1,6 +1,5 @@
 ﻿using Application.Interfaces;
 using Domain;
-using Infrastructure.Repositories.Interfaces;
 
 namespace Application.Services;
 

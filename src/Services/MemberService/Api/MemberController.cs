@@ -1,6 +1,8 @@
+using System.Net;
 using Api.Dtos;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Cosmos;
 
 namespace Api;
 
@@ -18,8 +20,15 @@ public class MemberController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> AddMember([FromBody] AddMemberRequest request)
     {
-        await _memberService.CreateMemberAsync(request.Id, request.Name);
-        return Created();
+        try
+        {
+            await _memberService.CreateMemberAsync(request.Id, request.Name);
+            return Created();
+        }
+        catch (CosmosException e) when(e.StatusCode == HttpStatusCode.Conflict)
+        {
+            return Conflict("Member is already exists");
+        }
     }
     
     [Route("members")]

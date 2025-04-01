@@ -3,7 +3,6 @@ using Application.Services;
 using Domain;
 using Infrastructure;
 using Infrastructure.Repositories;
-using Infrastructure.Repositories.Interfaces;
 using Microsoft.Azure.Cosmos;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,7 +26,8 @@ builder.Services.AddScoped<IRepository<Member>>(service =>
 {
     var databaseName = builder.Configuration["CosmosDb:DatabaseName"];
     var cosmosClient = service.GetRequiredService<CosmosClient>();
-    return new MemberRepository(cosmosClient, databaseName, "Members");
+    var logger = service.GetRequiredService<ILogger<IRepository<Member>>>(); 
+    return new MemberRepository(cosmosClient, databaseName, "Members", logger);
 });
 
 // Register the CosmosDbInitializer.
