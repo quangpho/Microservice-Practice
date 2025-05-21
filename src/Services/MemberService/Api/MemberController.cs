@@ -1,12 +1,14 @@
 using System.Net;
 using Api.Dtos;
 using Application.Interfaces;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Cosmos;
 
 namespace Api;
 
 [ApiController]
+[Route("member")]
 public class MemberController : ControllerBase
 {
     private readonly IMemberService _memberService;
@@ -16,7 +18,6 @@ public class MemberController : ControllerBase
         _memberService = memberService;
     }
 
-    [Route("members")]
     [HttpPost]
     public async Task<IActionResult> AddMember([FromBody] AddMemberRequest request)
     {
@@ -31,11 +32,26 @@ public class MemberController : ControllerBase
         }
     }
     
-    [Route("members")]
     [HttpGet]
     public async Task<IActionResult> GetMember(long id)
     {
         var member = await _memberService.GetMemberAsync(id);
+        if (member == null)
+        {
+            return NotFound();
+        }
+        return Ok(member);
+    }
+    
+    [HttpPut]
+    public async Task<IActionResult> UpdateMember(UpdateMemberRequest request)
+    {
+        var member = await _memberService.(request.Id);
+        if (member == null)
+        {
+            return NotFound($"There is not member with id {request.Id}");
+        }
+        
         return Ok(member);
     }
 }

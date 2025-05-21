@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Application.Services;
 using Domain;
+using Domain.Entities;
 using Moq;
 using Xunit;
 

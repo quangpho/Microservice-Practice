@@ -1,14 +1,17 @@
 using System.Net;
 using Application.Interfaces;
+using Domain.Constants;
+using Domain.Entities;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Repositories;
 
-public class Repository<T> : IRepository<T> where T : class
+public class Repository<T> : IRepository<T> where T : BaseCosmosModel
 {
     private readonly ILogger<IRepository<T>> _logger;
     private readonly Container _container;
+    private readonly string _defaultPartitionKey = PartitionKeys.DefaultPartitionKey;
 
     protected Repository(CosmosClient cosmosClient, string databaseName, string containerName,
         ILogger<IRepository<T>> logger)
@@ -17,11 +20,11 @@ public class Repository<T> : IRepository<T> where T : class
         _container = cosmosClient.GetContainer(databaseName, containerName);
     }
 
-    public async Task<T?> GetItemAsync(string id, string partitionKey)
+    public async Task<T> GetItemAsync(string id)
     {
         try
         {
-            ItemResponse<T> response = await _container.ReadItemAsync<T>(id, new PartitionKey(partitionKey));
+            ItemResponse<T> response = await _container.ReadItemAsync<T>(id, new PartitionKey(_defaultPartitionKey));
             return response.Resource;
         }
         catch (CosmosException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
@@ -29,17 +32,11 @@ public class Repository<T> : IRepository<T> where T : class
             return null;
         }
     }
-
-    public async Task AddItemAsync(T item, string partitionKey)
-    {
-        await _container.CreateItemAsync(item, new PartitionKey(partitionKey));
-    }
-
     public async Task AddItemAsync(T item)
     {
         try
         {
-            await _container.CreateItemAsync(item);
+            await _container.CreateItemAsync(item,  new PartitionKey(item.PartitionKey));
         }
         catch (CosmosException e) when (e.StatusCode == HttpStatusCode.Conflict)
         {
@@ -47,15 +44,14 @@ public class Repository<T> : IRepository<T> where T : class
             throw;
         }
     }
-
-
-    public async Task UpdateItemAsync(T item, string partitionKey)
+    
+    public async Task UpdateItemAsync(T item)
     {
-        await _container.UpsertItemAsync(item, new PartitionKey(partitionKey));
+        await _container.UpsertItemAsync(item, new PartitionKey(item.PartitionKey));
     }
 
-    public async Task DeleteItemAsync(string id, string partitionKey)
+    public async Task DeleteItemAsync(string id)
     {
-        await _container.DeleteItemAsync<T>(id, new PartitionKey(partitionKey));
+        await _container.DeleteItemAsync<T>(id, new PartitionKey(_defaultPartitionKey));
     }
 }

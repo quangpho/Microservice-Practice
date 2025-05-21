@@ -1,6 +1,6 @@
 using Application.Interfaces;
 using Application.Services;
-using Domain;
+using Domain.Entities;
 using Infrastructure;
 using Infrastructure.Repositories;
 using Microsoft.Azure.Cosmos;
