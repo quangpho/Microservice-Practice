@@ -43,10 +43,22 @@ public class MemberController : ControllerBase
         return Ok(member);
     }
     
-    [HttpPut]
+    [HttpPatch]
     public async Task<IActionResult> UpdateMember(UpdateMemberRequest request)
     {
-        var member = await _memberService.(request.Id);
+        var member = await _memberService.UpdateMemberAsync(request.Id, request.Name);
+        if (member == null)
+        {
+            return NotFound($"There is not member with id {request.Id}");
+        }
+        
+        return Ok(member);
+    }
+    
+    [HttpDelete]
+    public async Task<IActionResult> DeleteMember(long id)
+    {
+        var member = await _memberService.up(request.Id, request.Name);
         if (member == null)
         {
             return NotFound($"There is not member with id {request.Id}");

@@ -45,8 +45,7 @@ public class MemberService : IMemberService
         {
             Id = id.ToString(),
             Name = name,
-            CreatedAt = DateTime.Now,
-            
+            UpdatedAt = DateTime.Now,
         };
 
         await _memberRepository.UpdateItemAsync(member);
