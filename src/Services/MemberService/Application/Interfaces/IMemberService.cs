@@ -9,4 +9,4 @@ public interface IMemberService
     Task<bool> HasClub(long id);
     Task<Member> CreateMemberAsync(long id, string name);
     Task<Member> UpdateMemberAsync(long id, string name);
-}
+} 
