@@ -1,14 +1,18 @@
 using Application.Events;
 using Application.Interfaces;
-using Azure.Messaging.ServiceBus;
+using RabbitMQ.Client;
 
 namespace Infrastructure.Publisher;
 
 public class MessagePublisher : IMessagePublisher
 {
-    private readonly ServiceBusClient _client;
-    private readonly ServiceBusSender _sender;
-    
+    private readonly ConnectionFactory _connectionFactory;
+
+    public MessagePublisher(ConnectionFactory connectionFactory)
+    {
+        _connectionFactory = connectionFactory;
+    }
+
     public Task PublishMemberCreatedAsync(MemberCreatedEvent memberEvent)
     {
         throw new NotImplementedException();
